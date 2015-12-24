@@ -11,9 +11,13 @@
 |
 */
 
+View::addExtension('html', 'php');
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +33,11 @@ Route::get('/', function () {
 Route::group(['middleware' => ['web']], function () {
     //
 });
+
+Route::get('/blog', function() {
+	return view('Blog');
+});
+
+Route::post('/tweet/tweets/create', 'BlogController@create');
+
+Route::get('/tweets/all', 'BlogController@getall');
