@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Laravel-React</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/babel" src="js/main.js"></script>
+</head>
+<body>
+	<div id="content"></div>
+	<script type="text/babel">
+	  var Tweet = React.createClass({
+	  	getInitialState: function() {
+	  		return {
+	  			alltweets: []
+	  		};
+	  	},
+	  	componentDidMount: function() {
+	  		$.get('/tweets/all',function(data) {
+	  			console.log(data);
+	  			//this.setState({ alltweets: data });
+	  		}.bind(this));
+	  		
+	  	},
+	  	_renderTweets: function() {
+	  		
+	  	},
+	    render: function() {
+			return (
+				<div>
+				  <TwitterHeader />
+				  <TwitterPoster />
+			
+				  {this._renderTweets()}
+				</div>
+			);
+	    }
+	  });
+	  var TwitterHeader = React.createClass({
+	    render: function() {
+	      return (
+	        <h2> Post your swagoo ! </h2>
+	      );
+	    }
+	  });
+	  var TwitterPoster = React.createClass({
+	  	_handleClick: function() {
+	  		var tweetValue = this.refs.tweetvalue.value;
+	  		console.log(tweetValue);
+	  		$.post('/tweet/tweets/create', { tweet: tweetValue }, function(data) {
+	  			console.log(data);
+	  		});	
+	  	},
+	    render: function() {
+	      return (
+	      	<div>
+		        <input type="text" placeholder="your tweet ..." ref="tweetvalue" />
+		      	<input type="button" value="Tweet" onClick={this._handleClick} />
+		    </div>
+	      );
+	    }
+	  });
+	  var TweetBanner = React.createClass({
+
+	  	render: function() {
+	  		return(
+	  			<div>
+	  				Tweet by Swagger
+	  				{this.props.tweet}
+	  			</div>
+	  		);
+	  	}
+	  });
+  ReactDOM.render(
+    <Tweet />,
+    document.getElementById('content')
+  );
+</script>
+</body>
+</html>
