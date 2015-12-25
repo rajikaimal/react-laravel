@@ -27,7 +27,7 @@
 	  	},
 	    render: function() {
 			var handleTweets = this.state.alltweets.map(function(twt) {
-				return <TweetBanner key={twt.id} tweet={twt.tweet} />
+				return <TweetBanner key={twt.id} id={twt.id} tweet={twt.tweet} />
 			});
 			return (
 				<div>
@@ -65,12 +65,18 @@
 	    }
 	  });
 	  var TweetBanner = React.createClass({
-
+	  	_removeItem: function() {
+	  		console.log(this.props.id);
+	  		$.post('/tweets/delete',{ id: this.props.id }, function(data) {
+	  			console.log(data);
+	  		});
+	  	},
 	  	render: function() {
 	  		return(
 	  			<div>
 	  				Tweet by Swagger :
-	  				{this.props.tweet}
+	  				{this.props.tweet} 
+	  				<button onClick={this._removeItem} > Remove </button>
 	  			</div>
 	  		);
 	  	}
