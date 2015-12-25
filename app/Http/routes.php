@@ -40,4 +40,6 @@ Route::get('/blog', function() {
 
 Route::post('/tweets/create', 'BlogController@create');
 
+Route::post('/tweets/delete', 'BlogController@delete');
+
 Route::get('/tweets/all', 'BlogController@getall');
