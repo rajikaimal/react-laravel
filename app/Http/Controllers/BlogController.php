@@ -28,4 +28,12 @@ class BlogController extends Controller
     	$spec = Tweet::find($id);
     	$spec->delete();
     }
+    //edit a tweet
+    public function edit(Request $request) {
+    	$id = $request->input('id');
+    	$editedtweet = $request->input('tweet');
+    	$spec = Tweet::find($id);
+    	$spec->tweet = $editedtweet;
+    	$spec->save();
+    } 
 }
