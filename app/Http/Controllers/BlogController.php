@@ -11,13 +11,21 @@ use App\Tweet;
 
 class BlogController extends Controller
 {
+	//insert a tweet
     public function create(Request $request) {
     	$tweet = $request->input('tweet');
     	$newTweet = new Tweet;
     	$newTweet->tweet = $tweet;
     	$newTweet->save();
     }
+    //retrieve all tweets
     public function getall() {
     	return Tweet::all();
+    }
+    //delete a specific tweet
+    public function delete(Request $request) {
+    	$id = $request->input('id');
+    	$spec = Tweet::find($id);
+    	$spec->delete();
     }
 }
