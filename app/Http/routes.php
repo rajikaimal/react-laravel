@@ -38,6 +38,6 @@ Route::get('/blog', function() {
 	return view('Blog');
 });
 
-Route::post('/tweet/tweets/create', 'BlogController@create');
+Route::post('/tweets/create', 'BlogController@create');
 
 Route::get('/tweets/all', 'BlogController@getall');
