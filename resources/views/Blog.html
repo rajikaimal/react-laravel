@@ -65,17 +65,33 @@
 	    }
 	  });
 	  var TweetBanner = React.createClass({
+	  	getInitialState: function() {
+	  		return {
+	  			editinput: false
+	  		};
+	  	},
 	  	_removeItem: function() {
 	  		console.log(this.props.id);
 	  		$.post('/tweets/delete',{ id: this.props.id }, function(data) {
 	  			console.log(data);
 	  		});
 	  	},
+	  	_editItem: function() {
+	  		this.state.editinput ? this.setState({ editinput: false }) : this.setState({ editinput: true });
+	  	},
+	  	_handleSubmit: function() {
+	  		var editedValue = this.refs.editTweetValue.value;
+	  		$.post('/tweets/edit', { id: this.props.id, tweet: editedValue },function() {
+	  			this.setState({ editinput: false });
+	  		}.bind(this));
+	  	},
 	  	render: function() {
 	  		return(
 	  			<div>
 	  				Tweet by Swagger :
-	  				{this.props.tweet} 
+	  				{this.props.tweet}
+	  				{this.state.editinput ? <div> <input type="text"  placeholder="edit ..." ref="editTweetValue" /> <button onClick={this._handleSubmit} > Done </button> </div>: '' }
+	  				<button onClick={this._editItem} > Edit </button>
 	  				<button onClick={this._removeItem} > Remove </button>
 	  			</div>
 	  		);
