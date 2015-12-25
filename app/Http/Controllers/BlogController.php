@@ -13,10 +13,11 @@ class BlogController extends Controller
 {
     public function create(Request $request) {
     	$tweet = $request->input('tweet');
-    	return $tweet;
+    	$newTweet = new Tweet;
+    	$newTweet->tweet = $tweet;
+    	$newTweet->save();
     }
     public function getall() {
-    	$tweets = Tweet::all();
-    	return json_encode($tweetarr);
+    	return Tweet::all();
     }
 }
