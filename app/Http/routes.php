@@ -10,7 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+//add extra extension to render pure html alongside with php
 View::addExtension('html', 'php');
 
 Route::get('/', function () {
@@ -37,9 +37,11 @@ Route::group(['middleware' => ['web']], function () {
 Route::get('/blog', function() {
 	return view('Blog');
 });
-
+//route for inserting
 Route::post('/tweets/create', 'BlogController@create');
-
+//route for deleting
 Route::post('/tweets/delete', 'BlogController@delete');
-
+//route for updating
+Route::post('/tweets/edit', 'BlogController@edit');
+//route for retrieving all
 Route::get('/tweets/all', 'BlogController@getall');
