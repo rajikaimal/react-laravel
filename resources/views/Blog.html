@@ -18,22 +18,24 @@
 	  		};
 	  	},
 	  	componentDidMount: function() {
-	  		$.get('/tweets/all',function(data) {
-	  			console.log(data);
-	  			//this.setState({ alltweets: data });
-	  		}.bind(this));
 	  		
 	  	},
-	  	_renderTweets: function() {
-	  		
+	  	_getTweets: function() {
+	  		$.get('/tweets/all',function(data) {
+	  			this.setState({ alltweets: data });
+	  		}.bind(this));
 	  	},
 	    render: function() {
+			var handleTweets = this.state.alltweets.map(function(twt) {
+				return <TweetBanner key={twt.id} tweet={twt.tweet} />
+			});
 			return (
 				<div>
 				  <TwitterHeader />
 				  <TwitterPoster />
 			
-				  {this._renderTweets()}
+				  {this._getTweets()}
+				  {handleTweets}
 				</div>
 			);
 	    }
@@ -41,7 +43,7 @@
 	  var TwitterHeader = React.createClass({
 	    render: function() {
 	      return (
-	        <h2> Post your swagoo ! </h2>
+	        <h2> Post your swag ! </h2>
 	      );
 	    }
 	  });
@@ -49,9 +51,9 @@
 	  	_handleClick: function() {
 	  		var tweetValue = this.refs.tweetvalue.value;
 	  		console.log(tweetValue);
-	  		$.post('/tweet/tweets/create', { tweet: tweetValue }, function(data) {
+	  		$.post('/tweets/create', { tweet: tweetValue }, function(data) {
 	  			console.log(data);
-	  		});	
+	  		});
 	  	},
 	    render: function() {
 	      return (
@@ -67,7 +69,7 @@
 	  	render: function() {
 	  		return(
 	  			<div>
-	  				Tweet by Swagger
+	  				Tweet by Swagger :
 	  				{this.props.tweet}
 	  			</div>
 	  		);
