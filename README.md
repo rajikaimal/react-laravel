@@ -1,7 +1,7 @@
 # react-laravel
 Sample Laravel application with React for view layer
 
-Learning purposes only
+For learning purposes only
 
 ```
 $ git clone https://github.com/rajikaimal/react-laravel.git
