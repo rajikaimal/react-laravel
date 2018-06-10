@@ -1,4 +1,7 @@
 # react-laravel
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/rajikaimal/react-laravel.svg)](https://greenkeeper.io/)
+
 Sample Laravel application with React for view layer
 
 For learning purposes only
